@@ -2,13 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\ClienteRepository;
+use App\Repository\ClientRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: ClienteRepository::class)]
-class Cliente
+#[ORM\Entity(repositoryClass: ClientRepository::class)]
+class Client
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -24,7 +24,7 @@ class Cliente
     #[ORM\Column(type: 'date')]
     private $nascimento;
 
-    #[ORM\OneToMany(mappedBy: 'cliente', targetEntity: Telefone::class, orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'client', targetEntity: Telefone::class, orphanRemoval: true)]
     private $telefones;
 
     public function __construct()
@@ -85,7 +85,7 @@ class Cliente
     {
         if (!$this->telefones->contains($telefone)) {
             $this->telefones[] = $telefone;
-            $telefone->setCliente($this);
+            $telefone->setClient($this);
         }
 
         return $this;
@@ -95,8 +95,8 @@ class Cliente
     {
         if ($this->telefones->removeElement($telefone)) {
             // set the owning side to null (unless already changed)
-            if ($telefone->getCliente() === $this) {
-                $telefone->setCliente(null);
+            if ($telefone->getClient() === $this) {
+                $telefone->setClient(null);
             }
         }
 
