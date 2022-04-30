@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
@@ -12,7 +13,7 @@ class ClientController extends AbstractController
     /**
      * @Route("/client", methods={"GET"})
      */
-    public function read_all_clients(): Response
+    public function read_all_clients(Request $request): Response
     {
         return $this->json(['route' => 'GET read_all_clients']);
     }
@@ -26,9 +27,9 @@ class ClientController extends AbstractController
     /**
      * @Route("/client", methods={"POST"})
      */
-    public function create_client(): JsonResponse
+    public function create_client(Request $request): JsonResponse
     {
-        return $this->json(['route' => 'POST create_client']);
+        return $this->json(['route' => 'POST create_client', 'request' => $request->request]);
     }
     /**
      * @Route("/client/{id}", methods={"PUT"})
