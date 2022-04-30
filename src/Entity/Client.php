@@ -24,12 +24,12 @@ class Client
     #[ORM\Column(type: 'date')]
     private $nascimento;
 
-    #[ORM\OneToMany(mappedBy: 'client', targetEntity: Telefone::class, orphanRemoval: true)]
-    private $telefones;
+    #[ORM\OneToMany(mappedBy: 'client', targetEntity: Phone::class, orphanRemoval: true)]
+    private $phones;
 
     public function __construct()
     {
-        $this->telefones = new ArrayCollection();
+        $this->phones = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -74,29 +74,29 @@ class Client
     }
 
     /**
-     * @return Collection<int, Telefone>
+     * @return Collection<int, Phone>
      */
-    public function getTelefones(): Collection
+    public function getPhones(): Collection
     {
-        return $this->telefones;
+        return $this->phones;
     }
 
-    public function addTelefone(Telefone $telefone): self
+    public function addPhone(Phone $phone): self
     {
-        if (!$this->telefones->contains($telefone)) {
-            $this->telefones[] = $telefone;
-            $telefone->setClient($this);
+        if (!$this->phones->contains($phone)) {
+            $this->phones[] = $phone;
+            $phone->setClient($this);
         }
 
         return $this;
     }
 
-    public function removeTelefone(Telefone $telefone): self
+    public function removePhone(Phone $phone): self
     {
-        if ($this->telefones->removeElement($telefone)) {
+        if ($this->phones->removeElement($phone)) {
             // set the owning side to null (unless already changed)
-            if ($telefone->getClient() === $this) {
-                $telefone->setClient(null);
+            if ($phone->getClient() === $this) {
+                $phone->setClient(null);
             }
         }
 

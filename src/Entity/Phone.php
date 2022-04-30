@@ -2,11 +2,11 @@
 
 namespace App\Entity;
 
-use App\Repository\TelefoneRepository;
+use App\Repository\PhoneRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: TelefoneRepository::class)]
-class Telefone
+#[ORM\Entity(repositoryClass: PhoneRepository::class)]
+class Phone
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -19,12 +19,12 @@ class Telefone
     #[ORM\Column(type: 'integer')]
     private $numero;
 
-    #[ORM\ManyToOne(targetEntity: Cliente::class, inversedBy: 'telefones')]
+    #[ORM\ManyToOne(targetEntity: Client::class, inversedBy: 'phones')]
     #[ORM\JoinColumn(nullable: false)]
-    private $cliente;
+    private $client;
 
-    #[ORM\ManyToOne(targetEntity: Operadora::class, inversedBy: 'telefones')]
-    private $operadora;
+    #[ORM\ManyToOne(targetEntity: Operator::class, inversedBy: 'phones')]
+    private $operator;
 
     public function getId(): ?int
     {
@@ -55,26 +55,26 @@ class Telefone
         return $this;
     }
 
-    public function getCliente(): ?Cliente
+    public function getClient(): ?Client
     {
-        return $this->cliente;
+        return $this->client;
     }
 
-    public function setCliente(?Cliente $cliente): self
+    public function setClient(?Client $client): self
     {
-        $this->cliente = $cliente;
+        $this->client = $client;
 
         return $this;
     }
 
-    public function getOperadora(): ?Operadora
+    public function getOperator(): ?Operator
     {
-        return $this->operadora;
+        return $this->operator;
     }
 
-    public function setOperadora(?Operadora $operadora): self
+    public function setOperator(?Operator $operator): self
     {
-        $this->operadora = $operadora;
+        $this->operator = $operator;
 
         return $this;
     }

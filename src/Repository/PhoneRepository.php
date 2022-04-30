@@ -2,32 +2,32 @@
 
 namespace App\Repository;
 
-use App\Entity\Telefone;
+use App\Entity\Phone;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<Telefone>
+ * @extends ServiceEntityRepository<Phone>
  *
- * @method Telefone|null find($id, $lockMode = null, $lockVersion = null)
- * @method Telefone|null findOneBy(array $criteria, array $orderBy = null)
- * @method Telefone[]    findAll()
- * @method Telefone[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Phone|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Phone|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Phone[]    findAll()
+ * @method Phone[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class TelefoneRepository extends ServiceEntityRepository
+class PhoneRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Telefone::class);
+        parent::__construct($registry, Phone::class);
     }
 
     /**
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    public function add(Telefone $entity, bool $flush = true): void
+    public function add(Phone $entity, bool $flush = true): void
     {
         $this->_em->persist($entity);
         if ($flush) {
@@ -39,7 +39,7 @@ class TelefoneRepository extends ServiceEntityRepository
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    public function remove(Telefone $entity, bool $flush = true): void
+    public function remove(Phone $entity, bool $flush = true): void
     {
         $this->_em->remove($entity);
         if ($flush) {
@@ -48,7 +48,7 @@ class TelefoneRepository extends ServiceEntityRepository
     }
 
     // /**
-    //  * @return Telefone[] Returns an array of Telefone objects
+    //  * @return Phone[] Returns an array of Phone objects
     //  */
     /*
     public function findByExampleField($value)
@@ -65,7 +65,7 @@ class TelefoneRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?Telefone
+    public function findOneBySomeField($value): ?Phone
     {
         return $this->createQueryBuilder('t')
             ->andWhere('t.exampleField = :val')

@@ -2,32 +2,32 @@
 
 namespace App\Repository;
 
-use App\Entity\Operadora;
+use App\Entity\Operator;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<Operadora>
+ * @extends ServiceEntityRepository<Operator>
  *
- * @method Operadora|null find($id, $lockMode = null, $lockVersion = null)
- * @method Operadora|null findOneBy(array $criteria, array $orderBy = null)
- * @method Operadora[]    findAll()
- * @method Operadora[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Operator|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Operator|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Operator[]    findAll()
+ * @method Operator[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class OperadoraRepository extends ServiceEntityRepository
+class OperatorRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Operadora::class);
+        parent::__construct($registry, Operator::class);
     }
 
     /**
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    public function add(Operadora $entity, bool $flush = true): void
+    public function add(Operator $entity, bool $flush = true): void
     {
         $this->_em->persist($entity);
         if ($flush) {
@@ -39,7 +39,7 @@ class OperadoraRepository extends ServiceEntityRepository
      * @throws ORMException
      * @throws OptimisticLockException
      */
-    public function remove(Operadora $entity, bool $flush = true): void
+    public function remove(Operator $entity, bool $flush = true): void
     {
         $this->_em->remove($entity);
         if ($flush) {
@@ -48,7 +48,7 @@ class OperadoraRepository extends ServiceEntityRepository
     }
 
     // /**
-    //  * @return Operadora[] Returns an array of Operadora objects
+    //  * @return Operator[] Returns an array of Operator objects
     //  */
     /*
     public function findByExampleField($value)
@@ -65,7 +65,7 @@ class OperadoraRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?Operadora
+    public function findOneBySomeField($value): ?Operator
     {
         return $this->createQueryBuilder('o')
             ->andWhere('o.exampleField = :val')

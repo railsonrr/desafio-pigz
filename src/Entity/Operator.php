@@ -2,13 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\OperadoraRepository;
+use App\Repository\OperatorRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: OperadoraRepository::class)]
-class Operadora
+#[ORM\Entity(repositoryClass: OperatorRepository::class)]
+class Operator
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -18,12 +18,12 @@ class Operadora
     #[ORM\Column(type: 'string', length: 20)]
     private $nome;
 
-    #[ORM\OneToMany(mappedBy: 'operadora', targetEntity: Telefone::class)]
-    private $telefones;
+    #[ORM\OneToMany(mappedBy: 'operator', targetEntity: Phone::class)]
+    private $phones;
 
     public function __construct()
     {
-        $this->telefones = new ArrayCollection();
+        $this->phones = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -44,29 +44,29 @@ class Operadora
     }
 
     /**
-     * @return Collection<int, Telefone>
+     * @return Collection<int, Phone>
      */
-    public function getTelefones(): Collection
+    public function getPhones(): Collection
     {
-        return $this->telefones;
+        return $this->phones;
     }
 
-    public function addTelefone(Telefone $telefone): self
+    public function addPhone(Phone $phone): self
     {
-        if (!$this->telefones->contains($telefone)) {
-            $this->telefones[] = $telefone;
-            $telefone->setOperadora($this);
+        if (!$this->phones->contains($phone)) {
+            $this->phones[] = $phone;
+            $phone->setOperator($this);
         }
 
         return $this;
     }
 
-    public function removeTelefone(Telefone $telefone): self
+    public function removePhone(Phone $phone): self
     {
-        if ($this->telefones->removeElement($telefone)) {
+        if ($this->phones->removeElement($phone)) {
             // set the owning side to null (unless already changed)
-            if ($telefone->getOperadora() === $this) {
-                $telefone->setOperadora(null);
+            if ($phone->getOperator() === $this) {
+                $phone->setOperator(null);
             }
         }
 
