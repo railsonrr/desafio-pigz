@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Client;
 use App\Entity\Phone;
 use App\Repository\ClientRepository;
+use App\Repository\PhoneRepository;
 use App\Repository\OperatorRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -31,7 +32,7 @@ class ClientController extends AbstractController
     /**
      * @Route("/client", methods={"POST"})
      */
-    public function create_client(Request $request, ClientRepository $client_repository, OperatorRepository $operator_repository): JsonResponse
+    public function create_client(Request $request, ClientRepository $client_repository, OperatorRepository $operator_repository, PhoneRepository $phone_repository): JsonResponse
     {
         foreach (json_decode($request->getContent()) as $client)
         {
@@ -40,22 +41,19 @@ class ClientController extends AbstractController
             $new_client->setNome($client->nome);
             $new_client->setCpf($client->cpf);
             $new_client->setNascimento($date);
-            var_dump($new_client->getNascimento());
-            exit;
-        //     foreach($client->telefones as $telefone)
-        //     {
-        //         $operadora = $operator_repository->find($telefone->operadora_id);
-        //         $new_telefone = new Phone();
-        //         $new_telefone->setDdd();
-        //         $new_telefone->setNumero();
-        //         $new_telefone->setOperator();
-        //         $new_telefone->setClient();
-        //         return $this->json($operadora);
-        //     }
+            $client_repository->add($new_client);
+            foreach($client->telefones as $telefone)
+            {
+                $operadora = $operator_repository->find($telefone->operadora_id);
+                $new_telefone = new Phone();
+                $new_telefone->setDdd($telefone->ddd);
+                $new_telefone->setNumero($telefone->numero);
+                $new_telefone->setOperator($operadora);
+                $new_telefone->setClient($new_client);
+                $phone_repository->add($new_telefone);
+            }
+            return $this->json('Saved new clients');
         }
-        // exit;
-        // $client_data = json_decode($request->getContent());
-        // return $this->json($client_data);
     }
     /**
      * @Route("/client/{id}", methods={"PUT"})
