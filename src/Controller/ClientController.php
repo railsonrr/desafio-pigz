@@ -57,29 +57,36 @@ class ClientController extends AbstractController
                 $new_telefone->setClient($new_client);
                 $phone_repository->add($new_telefone);
             }
-            return $this->json('Saved new clients');
         }
+        return $this->json('Saved new clients');
     }
     /**
      * @Route("/client/{id}", methods={"PUT"})
      */
-    public function update_client(int $id, Request $request): JsonResponse
+    public function update_client(int $id, Request $request, ClientRepository $client_repository, NormalizerInterface $serializer): JsonResponse
     {
-        // $params = json_decode($request->getContent(), true);
-        // foreach ($params as $obj) {
-        //     var_dump($obj);
-        // }
-        //$i = 0;
-        // for ($i; $i < count($params); $i++)
-        // {
-        //     var_dump($params[$i]);
-        // }
-        // exit;
-        return $this->json
-        ([
-            'route' => 'PUT update_client with id: '.$id,
-            'updated data' => json_decode($request->getContent(), true)
-        ]);
+        $clientFetched = $client_repository->find($id);
+        // $data = $serializer->normalize($client, null, ['groups' => 'group1']);
+
+        foreach (json_decode($request->getContent()) as $clientRequest)
+        {
+            $date = new \Datetime($clientRequest->nascimento);
+            $clientFetched->setNome($clientRequest->nome);
+            $clientFetched->setCpf($clientRequest->cpf);
+            $clientFetched->setNascimento($date);
+            $client_repository->add($clientFetched);
+            // foreach($clientRequest->telefones as $telefone)
+            // {
+            //     $operadora = $operator_repository->find($telefone->operadora_id);
+            //     $new_telefone = new Phone();
+            //     $new_telefone->setDdd($telefone->ddd);
+            //     $new_telefone->setNumero($telefone->numero);
+            //     $new_telefone->setOperator($operadora);
+            //     $new_telefone->setClient($new_client);
+            //     $phone_repository->add($new_telefone);
+            // }
+        }
+        return $this->json('Updated client');
     }
     /**
      * @Route("/client/{id}", methods={"DELETE"})
