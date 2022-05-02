@@ -1,0 +1,19 @@
+[
+    {
+        "nome": "Railson",
+        "cpf": "02365478215",
+        "nascimento": "05/06/2015",
+        "telefones": [
+            {
+                "ddd": "095",
+                "numero": 991652312,
+                "operadora_id": 15
+            },
+            {
+                "ddd": "095",
+                "numero": 991652342,
+                "operadora_id": 16
+            }
+        ]
+    }
+]
