@@ -84,8 +84,11 @@ class ClientController extends AbstractController
     /**
      * @Route("/client/{id}", methods={"DELETE"})
      */
-    public function delete_client(int $id): JsonResponse
+    public function delete_client(int $id, ClientRepository $client_repository, NormalizerInterface $serializer): JsonResponse
     {
-        return $this->json(['route' => "DELETE delete_client"]);
+        $client = $client_repository->find($id);
+        $data = $serializer->normalize($client, null, ['groups' => 'group1']);
+        $client_repository->remove($client);
+        return $this->json($data);
     }
 }
