@@ -12,22 +12,27 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 class ClientController extends AbstractController
 {
     /**
      * @Route("/client", methods={"GET"})
      */
-    public function read_all_clients(Request $request): Response
+    public function read_all_clients(Request $request, ClientRepository $client_repository, NormalizerInterface $serializer): Response
     {
-        return $this->json(['route' => 'GET read_all_clients']);
+        $client_list = $client_repository->findAll();
+        $data = $serializer->normalize($client_list, null, ['groups' => 'group1']);
+        return $this->json($data);
     }
     /**
      * @Route("/client/{id}", methods={"GET"})
      */
-    public function read_client(): JsonResponse
+    public function read_client(int $id, ClientRepository $client_repository, NormalizerInterface $serializer): JsonResponse
     {
-        return $this->json(['route' => 'GET read_client']);
+        $client = $client_repository->find($id);
+        $data = $serializer->normalize($client, null, ['groups' => 'group1']);
+        return $this->json($data);
     }
     /**
      * @Route("/client", methods={"POST"})
@@ -79,8 +84,8 @@ class ClientController extends AbstractController
     /**
      * @Route("/client/{id}", methods={"DELETE"})
      */
-    public function delete_client(): JsonResponse
+    public function delete_client(int $id): JsonResponse
     {
-        return $this->json(['route' => 'DELETE delete_client']);
+        return $this->json(['route' => "DELETE delete_client"]);
     }
 }

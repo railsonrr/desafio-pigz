@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\PhoneRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: PhoneRepository::class)]
 class Phone
@@ -11,12 +12,16 @@ class Phone
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
+
+    #[Groups("group1")]
     private $id;
 
     #[ORM\Column(type: 'integer')]
+    #[Groups("group1")]
     private $ddd;
 
     #[ORM\Column(type: 'integer')]
+    #[Groups("group1")]
     private $numero;
 
     #[ORM\ManyToOne(targetEntity: Client::class, inversedBy: 'phones')]
@@ -24,6 +29,7 @@ class Phone
     private $client;
 
     #[ORM\ManyToOne(targetEntity: Operator::class, inversedBy: 'phones')]
+    #[Groups("group1")]
     private $operator;
 
     public function getId(): ?int

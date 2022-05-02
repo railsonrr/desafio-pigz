@@ -6,6 +6,7 @@ use App\Repository\OperatorRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: OperatorRepository::class)]
 class Operator
@@ -13,9 +14,12 @@ class Operator
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
+
+    #[Groups("group1")]
     private $id;
 
     #[ORM\Column(type: 'string', length: 20)]
+    #[Groups("group1")]
     private $nome;
 
     #[ORM\OneToMany(mappedBy: 'operator', targetEntity: Phone::class)]
