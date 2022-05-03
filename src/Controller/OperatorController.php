@@ -27,9 +27,11 @@ class OperatorController extends AbstractController
     /**
      * @Route("/operator/{id}", methods={"GET"})
      */
-    public function read_operator(): JsonResponse
+    public function read_operator(int $id, OperatorRepository $operator_repository, NormalizerInterface $serializer): JsonResponse
     {
-        return $this->json(['route' => 'GET read_operator']);
+        $operator = $operator_repository->find($id);
+        $operator_serialized = $serializer->normalize($operator, null, ['groups' => 'group1']);
+        return $this->json($operator_serialized);
     }
 
     /**
