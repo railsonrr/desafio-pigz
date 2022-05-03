@@ -81,19 +81,18 @@ class OperatorController extends AbstractController
      */
     public function update_operator(int $id, Request $request, OperatorRepository $operator_repository): JsonResponse
     {
-        $body = json_decode($request->getContent());
+        $operator_body_request = json_decode($request->getContent());
         $operator_fetched = $operator_repository->find($id);
 
         if(!$operator_fetched)
         {
             return $this->json(null);
         }
+        
+        $operator_fetched->setNome($operator_body_request->nome);
+        $operator_repository->add($operator_fetched);
 
-        foreach ($body as $operator) {
-            $operator_fetched->setNome($operator->nome);
-            $operator_repository->add($operator_fetched);
-        }
-        return $this->json("Updated new operator new operators");
+        return $this->json(["Updated operator" => $operator_fetched]);
     }
 
     /**
