@@ -19,21 +19,23 @@ class ClientController extends AbstractController
     /**
      * @Route("/client", methods={"GET"})
      */
-    public function read_all_clients(Request $request, ClientRepository $client_repository, NormalizerInterface $serializer): Response
+    public function read_all_clients(ClientRepository $client_repository, NormalizerInterface $serializer): Response
     {
         $client_list = $client_repository->findAll();
-        $data = $serializer->normalize($client_list, null, ['groups' => 'group1']);
-        return $this->json($data);
+        $client_list_serialized = $serializer->normalize($client_list, null, ['groups' => 'group1']);
+        return $this->json($client_list_serialized);
     }
+
     /**
      * @Route("/client/{id}", methods={"GET"})
      */
     public function read_client(int $id, ClientRepository $client_repository, NormalizerInterface $serializer): JsonResponse
     {
         $client = $client_repository->find($id);
-        $data = $serializer->normalize($client, null, ['groups' => 'group1']);
-        return $this->json($data);
+        $client_serialized = $serializer->normalize($client, null, ['groups' => 'group1']);
+        return $this->json($client_serialized);
     }
+
     /**
      * @Route("/client", methods={"POST"})
      */
@@ -60,6 +62,7 @@ class ClientController extends AbstractController
         }
         return $this->json('Saved new clients');
     }
+
     /**
      * @Route("/client/{id}", methods={"PUT"})
      */
@@ -88,6 +91,7 @@ class ClientController extends AbstractController
         }
         return $this->json('Updated client');
     }
+
     /**
      * @Route("/client/{id}", methods={"DELETE"})
      */
