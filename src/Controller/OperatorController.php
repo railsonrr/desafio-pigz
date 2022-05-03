@@ -39,34 +39,37 @@ class OperatorController extends AbstractController
      */
     public function create_operator(Request $request, OperatorRepository $operator_repository): JsonResponse
     {
-        foreach (json_decode($request->getContent()) as $operator) {
+        $body = json_decode($request->getContent());
+        $operators_created_list = [];
+        
+        foreach ($body as $operator) {
             $new_operator = new Operator();
             $new_operator->setNome($operator->nome);
             $operator_repository->add($new_operator);
+
+            $operators_created_list[] = $new_operator;
         }
-        return $this->json("Saved new operator new operators");
+        return $this->json(["Saved new operators" => $operators_created_list]);
     }
 
     /**
      * @Route("/operator/{id}", methods={"PUT"})
      */
-    public function update_operator(int $id, Request $request): JsonResponse
+    public function update_operator(int $id, Request $request, OperatorRepository $operator_repository): JsonResponse
     {
-        // $params = json_decode($request->getContent(), true);
-        // foreach ($params as $obj) {
-        //     var_dump($obj);
-        // }
-        //$i = 0;
-        // for ($i; $i < count($params); $i++)
-        // {
-        //     var_dump($params[$i]);
-        // }
-        // exit;
-        return $this->json
-        ([
-            'route' => 'PUT update_operator with id: '.$id,
-            'updated data' => json_decode($request->getContent(), true)
-        ]);
+        $body = json_decode($request->getContent());
+        $operator_fetched = $operator_repository->find($id);
+
+        if(!$operator_fetched)
+        {
+            return $this->json(null);
+        }
+
+        foreach ($body as $operator) {
+            $operator_fetched->setNome($operator->nome);
+            $operator_repository->add($operator_fetched);
+        }
+        return $this->json("Updated new operator new operators");
     }
 
     /**
