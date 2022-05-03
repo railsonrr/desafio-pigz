@@ -1,6 +1,17 @@
 <h1 align="center">Desafio Pigz - API CRUD</h1>
 <strong>Server: localhost:8000</strong>
 
+<h2>POST /operator</h2>
+<p>Create a new operator</p>
+<p>Body JSON Format:</p>
+<code>
+  [
+    {
+        "nome": ""
+    }
+  ]  
+</code>
+
 <h2>GET /client</h2>
 <p>Get a list of all clients</p>
 
