@@ -40,9 +40,33 @@ class OperatorController extends AbstractController
     public function create_operator(Request $request, OperatorRepository $operator_repository): JsonResponse
     {
         $body = json_decode($request->getContent());
+        $operator_fetched_list = $operator_repository->findAll();
+
+        $operators_name_existents = [];
+        foreach ($operator_fetched_list as $operator_fetched) {
+            $operators_name_existents[] = $operator_fetched->getNome();
+        }
+
         $operators_created_list = [];
         
         foreach ($body as $operator) {
+
+            $is_operator_existent = false;
+
+            foreach($operators_name_existents as $existent_name)
+            {
+                if($operator->nome === $existent_name)
+                {
+                    $is_operator_existent = true;
+                    continue;
+                }
+            }
+
+            if($is_operator_existent)
+            {
+                continue;
+            }
+
             $new_operator = new Operator();
             $new_operator->setNome($operator->nome);
             $operator_repository->add($new_operator);
