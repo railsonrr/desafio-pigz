@@ -27,6 +27,11 @@ class PhoneController extends AbstractController
             $client_relationed = $client_repository->find($phone->client_id);
             $operator_relationed = $operator_repository->find($phone->operator_id);
 
+            if (!$client_relationed || !$operator_relationed)
+            {
+                continue;
+            }
+
             $new_phone = new Phone();
             $new_phone->setDdd($phone->ddd);
             $new_phone->setNumero($phone->numero);
