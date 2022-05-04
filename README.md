@@ -45,15 +45,8 @@
   [
     {
         "nome": "",
-        "cpf": "",
-        "nascimento": "dd/mm/aaaa",
-        "telefones": [
-            {
-                "ddd": "000",
-                "numero": 000000000,
-                "operadora_id": 0
-            }
-        ]
+        "cpf": 999999,
+        "nascimento": "mm/dd/yyyy",
     }
 ]
 </code>
@@ -65,15 +58,8 @@
   [
     {
         "nome": "",
-        "cpf": "",
-        "nascimento": "dd/mm/aaaa",
-        "telefones": [
-            {
-                "ddd": "000",
-                "numero": 000000000,
-                "operadora_id": 0
-            }
-        ]
+        "cpf": 999999,
+        "nascimento": "mm/dd/yyyy",
     }
 ]
 </code>
