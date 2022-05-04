@@ -17,7 +17,7 @@ class PhoneController extends AbstractController
     /**
      * @Route("/phone", methods={"POST"})
      */
-    public function index(Request $request, PhoneRepository $phone_repository, ClientRepository $client_repository, OperatorRepository $operator_repository, NormalizerInterface $serializer): Response
+    public function create_phone(Request $request, PhoneRepository $phone_repository, ClientRepository $client_repository, OperatorRepository $operator_repository, NormalizerInterface $serializer): Response
     {
         $body = json_decode($request->getContent());
         $phones_created_list = [];
@@ -39,5 +39,15 @@ class PhoneController extends AbstractController
 
         $phones_created_list_serialized = $serializer->normalize($phones_created_list, null, ['groups' => 'group1']);
         return $this->json(['Saved new phones' => $phones_created_list_serialized]);
+    }
+
+    /**
+     * @Route("/phone", methods={"GET"})
+     */
+    public function read_all_phones(PhoneRepository $phone_repository, NormalizerInterface $serializer): Response
+    {
+        $phones_list = $phone_repository->findAll();
+        $phones_list_serialized = $serializer->normalize($phones_list, null, ['groups' => 'group1']);
+        return $this->json(['Saved new phones' => $phones_list_serialized]);
     }
 }
