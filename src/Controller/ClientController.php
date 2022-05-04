@@ -5,8 +5,6 @@ namespace App\Controller;
 use App\Entity\Client;
 use App\Entity\Phone;
 use App\Repository\ClientRepository;
-use App\Repository\PhoneRepository;
-use App\Repository\OperatorRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
@@ -61,7 +59,7 @@ class ClientController extends AbstractController
     /**
      * @Route("/client/{id}", methods={"PUT"})
      */
-    public function update_client(int $id, Request $request, ClientRepository $client_repository, NormalizerInterface $serializer): JsonResponse
+    public function update_client(int $id, Request $request, ClientRepository $client_repository): JsonResponse
     {
         $client_body_request = json_decode($request->getContent());
         $client_fetched = $client_repository->find($id);
