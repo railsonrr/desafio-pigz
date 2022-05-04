@@ -63,6 +63,6 @@ class PhoneController extends AbstractController
     {
         $phone = $phone_repository->find($id);
         $phones_serialized = $serializer->normalize($phone, null, ['groups' => 'group1']);
-        return $this->json(['Saved new phones' => $phones_serialized]);
+        return $this->json($phones_serialized);
     }
 }
