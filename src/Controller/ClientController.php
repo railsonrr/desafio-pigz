@@ -64,6 +64,11 @@ class ClientController extends AbstractController
         $client_body_request = json_decode($request->getContent());
         $client_fetched = $client_repository->find($id);
 
+        if (!$client_fetched)
+        {
+            return $this->json(null);
+        }
+
         $date = new \Datetime($client_body_request->nascimento);
         $client_fetched->setNome($client_body_request->nome);
         $client_fetched->setCpf($client_body_request->cpf);
@@ -78,8 +83,14 @@ class ClientController extends AbstractController
     public function delete_client(int $id, ClientRepository $client_repository, NormalizerInterface $serializer): JsonResponse
     {
         $client = $client_repository->find($id);
+
+        if(!$client)
+        {
+            return $this->json(null);
+        }
+
         $data = $serializer->normalize($client, null, ['groups' => 'group1']);
         $client_repository->remove($client);
-        return $this->json($data);
+        return $this->json(["Deleted client" => $data]);
     }
 }
