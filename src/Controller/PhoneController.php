@@ -65,4 +65,21 @@ class PhoneController extends AbstractController
         $phones_serialized = $serializer->normalize($phone, null, ['groups' => 'group1']);
         return $this->json($phones_serialized);
     }
+
+    /**
+     * @Route("/phone/{id}", methods={"DELETE"})
+     */
+    public function delete_phone(int $id, PhoneRepository $phone_repository, NormalizerInterface $serializer): Response
+    {
+        $phone = $phone_repository->find($id);
+
+        if(!$phone)
+        {
+            return $this->json(null);
+        }
+
+        $data = $serializer->normalize($phone, null, ['groups' => 'group1']);
+        $phone_repository->remove($phone);
+        return $this->json(["Deleted phone" => $data]);
+    }
 }
