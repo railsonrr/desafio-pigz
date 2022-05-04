@@ -69,7 +69,7 @@ class ClientController extends AbstractController
         $client_fetched->setCpf($client_body_request->cpf);
         $client_fetched->setNascimento($date);
         $client_repository->add($client_fetched);
-        return $this->json($client_fetched);
+        return $this->json(["Updated client" => $client_fetched]);
     }
 
     /**
