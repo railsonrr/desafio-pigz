@@ -26,6 +26,7 @@ class Phone
 
     #[ORM\ManyToOne(targetEntity: Client::class, inversedBy: 'phones')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Groups("group1")]
     private $client;
 
     #[ORM\ManyToOne(targetEntity: Operator::class, inversedBy: 'phones')]

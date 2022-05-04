@@ -29,7 +29,6 @@ class Client
     #[ORM\Column(type: 'date')]
     private $nascimento;
 
-    #[Groups("group1")]
     #[ORM\OneToMany(mappedBy: 'client', targetEntity: Phone::class, orphanRemoval: true)]
     private $phones;
 
