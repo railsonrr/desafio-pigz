@@ -98,8 +98,10 @@ class OperatorController extends AbstractController
     /**
      * @Route("/operator/{id}", methods={"DELETE"})
      */
-    public function delete_operator(): JsonResponse
+    public function delete_operator(int $id, OperatorRepository $operator_repository): JsonResponse
     {
-        return $this->json(['route' => 'DELETE delete_operator']);
+        $operator_fetched = $operator_repository->find($id);
+        $operator_repository->remove($operator_fetched);
+        return $this->json(['Deleted operator' => $operator_fetched]);
     }
 }
