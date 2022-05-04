@@ -53,6 +53,16 @@ class PhoneController extends AbstractController
     {
         $phones_list = $phone_repository->findAll();
         $phones_list_serialized = $serializer->normalize($phones_list, null, ['groups' => 'group1']);
-        return $this->json(['Saved new phones' => $phones_list_serialized]);
+        return $this->json($phones_list_serialized);
+    }
+
+    /**
+     * @Route("/phone/{id}", methods={"GET"})
+     */
+    public function read_phone(int $id, PhoneRepository $phone_repository, NormalizerInterface $serializer): Response
+    {
+        $phone = $phone_repository->find($id);
+        $phones_serialized = $serializer->normalize($phone, null, ['groups' => 'group1']);
+        return $this->json(['Saved new phones' => $phones_serialized]);
     }
 }
