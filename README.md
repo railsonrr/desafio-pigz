@@ -64,3 +64,36 @@
 
 <h2>DELETE /client/{id}</h2>
 <p>Delete a client from database by id</p>
+
+<hr>
+
+<h2>POST /phone</h2>
+<p>Create one or more phones</p>
+<p>Body JSON Format:</p>
+<code>
+  [
+    {
+        "ddd": 95,
+        "numero": 77777777,
+        "client_id": 15,
+        "operator_id": 47
+    }
+  ]  
+</code>
+
+<h2>GET /phone</h2>
+<p>Get all phones from database</p>
+
+<h2>GET /phone/{id}</h2>
+<p>Get a phone from database by id</p>
+
+<h2>PUT /phone/{id}</h2>
+<h3>Not implemented yet</h3>
+<p>Update a phone from database by id</p>
+<p>Body JSON Format:</p>
+<code>
+  {}
+</code>
+
+<h2>DELETE /phone/{id}</h2>
+<p>Delete a phone from database by id</p>
