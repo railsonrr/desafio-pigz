@@ -33,13 +33,13 @@
 <hr>
 
 <h2>GET /client</h2>
-<p>Get a list of all clients</p>
+<p>Get a list of all clients from database</p>
 
 <h2>GET /client/{id}</h2>
-<p>Get a client</p>
+<p>Get a client from database by id</p>
 
 <h2>POST /client</h2>
-<p>Create a new client</p>
+<p>Create a new client on database</p>
 <p>Body JSON Format:</p>
 <code>
   [
@@ -52,17 +52,15 @@
 </code>
 
 <h2>PUT /client/{id}</h2>
-<p>Update data from an existent client</p>
+<p>Update client from database by id</p>
 <p>Body JSON Format</p>
 <code>
-  [
-    {
-        "nome": "",
-        "cpf": 999999,
-        "nascimento": "mm/dd/yyyy",
-    }
-]
+  {
+    "nome": "",
+    "cpf": 999999,
+    "nascimento": "mm/dd/yyyy",
+  }
 </code>
 
 <h2>DELETE /client/{id}</h2>
-<p>Delete a client</p>
+<p>Delete a client from database by id</p>
