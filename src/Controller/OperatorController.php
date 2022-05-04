@@ -101,6 +101,11 @@ class OperatorController extends AbstractController
     public function delete_operator(int $id, OperatorRepository $operator_repository): JsonResponse
     {
         $operator_fetched = $operator_repository->find($id);
+
+        if(!$operator_fetched){
+            return $this->json(null);
+        }
+
         $operator_repository->remove($operator_fetched);
         return $this->json(['Deleted operator' => $operator_fetched]);
     }
