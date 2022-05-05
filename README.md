@@ -88,11 +88,15 @@
 <p>Get a phone from database by id</p>
 
 <h2>PUT /phone/{id}</h2>
-<h3>Not implemented yet</h3>
 <p>Update a phone from database by id</p>
 <p>Body JSON Format:</p>
 <code>
-  {}
+  {
+    "ddd": 16,
+    "numero": 11111111,
+    "client_id": 14,
+    "operator_id": 45
+  }
 </code>
 
 <h2>DELETE /phone/{id}</h2>
